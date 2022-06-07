@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>name</title>
+    <script>
+        var url = "http://localhost8080/courses";
+        function disp(){
+            var x = new XMLHttpRequest();
+            x.open("GET",url,true);
+            x.onreadystatechange = function(){
+                if(x.readyState===4 && x.status ===200){
+                    var courses = JSON.parse(x.responseText);
+                    var tbltop = '<table><tr><th>id</th><th>title</th><th>description</th></tr>';
+                    var main = "";
+                    for(i=0; i<courses.length; i++){
+                        main += "<tr><td>"+courses[i].id+"</td><td>"+courses[i].title+"</td><td>"+courses[i].description+"</td></tr>";
+
+                    }
+                    var tblbtm = "</table>"
+                    var tbl = tbltop+main+tblbtm;
+                    document.getElementById("crs").innerHTML = tbl;
+                }
+                x.send();
+            }
+            window.onload = function(){
+                disp();
+            }
+        } 
+    </script>
+</head>
+<body>
+    <div id="crs"></div>
+</body>
+</html>
